@@ -16,7 +16,7 @@ export default function NumericTextBox({value, setValue}: Props ) {
 
     return (
         <>
-            <input type="text" id="before" className={`mb-5 border rounded-md text-right`}
+            <input type="text" id="before" className="mb-5 border rounded-md text-right px-1"
                    style={{width: "calc(100% - 114px)",}}
                    value={value}
                    onKeyUp={keyUpHandler}
