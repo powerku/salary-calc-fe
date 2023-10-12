@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <Header title="연봉 인상률 계산기" />
+      <Header/>
       {children}</body>
     </html>
   )
