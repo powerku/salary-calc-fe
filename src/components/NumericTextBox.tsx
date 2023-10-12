@@ -1,5 +1,6 @@
 "use client"
 import styles from "@/app/increaseRate/style.module.css";
+import {Input} from "@/components/ui/input";
 
 type Props = {
     value: string
@@ -16,11 +17,10 @@ export default function NumericTextBox({value, setValue}: Props ) {
 
     return (
         <>
-            <input type="text" id="before" className="mb-5 border rounded-md text-right px-1"
-                   style={{width: "calc(100% - 114px)",}}
+            <Input type="text"
                    value={value}
                    onKeyUp={keyUpHandler}
                    onChange={(e) => setValue(e.target.value)}/>
         </>
-    )
+    );
 }
