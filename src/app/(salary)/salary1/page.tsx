@@ -1,5 +1,5 @@
 "use client";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 
 import {z} from "zod";
@@ -28,7 +28,9 @@ export default function Home() {
         const [afterSalary, setAfterSalary] = useState('0');
         const [rate, setRate] = useState(0);
 
-        const calcBtnClickHandler = () => {
+        const calcBtnClickHandler = (e: React.MouseEvent<HTMLElement>) => {
+            e.preventDefault()
+
             const before = Number(beforeSalary.replaceAll(',', ''));
             const after = Number(afterSalary.replaceAll(',', ''));
 
@@ -38,7 +40,9 @@ export default function Home() {
             }
             setRate(Number(((after - before) / before * 100).toFixed(2)));
         }
-        const resetBtnClickHandler = () => {
+        const resetBtnClickHandler = (e: React.MouseEvent<HTMLElement>) => {
+            e.preventDefault();
+
             setBeforeSalary('0');
             setAfterSalary('0');
             setRate(0);

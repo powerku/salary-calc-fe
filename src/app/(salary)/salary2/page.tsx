@@ -48,7 +48,6 @@ export default function Home() {
     }
 
     return (
-        <div className="w-full">
             <Form {...form}>
                 <form className="my-0 mx-auto" style={{width: "300px"}}>
                     <FormField
@@ -85,6 +84,5 @@ export default function Home() {
                     </div>
                 </form>
             </Form>
-        </div>
     );
 }

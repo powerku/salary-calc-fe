@@ -9,8 +9,10 @@ type Props = {
 export default function NumericTextBox({value, setValue}: Props ) {
 
     const keyUpHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        const formatValue = Number(e.currentTarget.value.replaceAll(',', ''))
-            .toLocaleString('ko-KR');
+        let inputValue = e.currentTarget.value.replaceAll(',', '')
+        inputValue = inputValue.replace(/[^0-9]/g, "");
+
+        const formatValue = Number(inputValue).toLocaleString('ko-KR');
         setValue(formatValue);
     }
 
