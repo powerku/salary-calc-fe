@@ -2,7 +2,7 @@
 import {Input} from "@/components/ui/input";
 
 type Props = {
-    value: string
+    value?: string | null | undefined
     setValue: Function
 }
 
@@ -20,7 +20,7 @@ export default function NumericTextBox({value, setValue}: Props ) {
         <>
             <Input type="text"
                    className="text-right px-1"
-                   value={value}
+                   value={value || ''}
                    onKeyUp={keyUpHandler}
                    onChange={(e) => setValue(e.target.value)}/>
         </>

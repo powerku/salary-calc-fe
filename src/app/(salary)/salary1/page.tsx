@@ -24,12 +24,16 @@ export default function Home() {
         resolver: zodResolver(FormSchema),
     })
 
-        const [beforeSalary, setBeforeSalary] = useState('0');
-        const [afterSalary, setAfterSalary] = useState('0');
+        const [beforeSalary, setBeforeSalary] = useState<string | null>(null);
+        const [afterSalary, setAfterSalary] = useState<string | null>(null);
         const [rate, setRate] = useState(0);
 
         const calcBtnClickHandler = (e: React.MouseEvent<HTMLElement>) => {
             e.preventDefault()
+
+            if (beforeSalary === null || afterSalary === null) {
+                return;
+            }
 
             const before = Number(beforeSalary.replaceAll(',', ''));
             const after = Number(afterSalary.replaceAll(',', ''));
@@ -39,7 +43,7 @@ export default function Home() {
                 return;
             }
             setRate(Number(((after - before) / before * 100).toFixed(2)));
-        }
+    }
         const resetBtnClickHandler = (e: React.MouseEvent<HTMLElement>) => {
             e.preventDefault();
 

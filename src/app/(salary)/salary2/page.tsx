@@ -24,12 +24,17 @@ export default function Home() {
         resolver: zodResolver(FormSchema),
     })
 
-    const [current, setCurrent] = useState('0');
-    const [rate, setRate] = useState('0');
+    const [current, setCurrent] = useState<string | null>(null);
+    const [rate, setRate] = useState<string | null>(null);
     const [result, setResult] = useState('0');
 
     const calcBtnClickHandler = (e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        if (current === null || rate === null) {
+            return;
+        }
+
         const currentSalary = Number(current.replaceAll(',', ''));
         const increaseRate = Number(rate.replaceAll(',', ''));
 
