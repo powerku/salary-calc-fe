@@ -23,6 +23,12 @@ export default function Home() {
               연봉 인상액 계산기
             </Link>
           </div>
+          <div key="salary3" className="text-sm">
+            <Link href="/salary3" className="flex">
+              <CaretRightIcon className="my-auto mr-2 h-4 w-4" />실 수령액
+              계산기
+            </Link>
+          </div>
           <Separator className="my-2" />
         </div>
       </ScrollArea>

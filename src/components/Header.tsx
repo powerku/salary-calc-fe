@@ -8,6 +8,7 @@ export default function Header() {
   const title = {
     "/salary1": "연봉 인상률 계산기",
     "/salary2": "연봉 인상액 계산기",
+    "/salary3": "2023년 실수령액 계산기",
   };
 
   return (

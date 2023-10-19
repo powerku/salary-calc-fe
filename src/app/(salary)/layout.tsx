@@ -47,6 +47,12 @@ export default function RootLayout({
                   </Link>
                 </div>
                 <Separator className="my-2" />
+                <div key="salary3" className="text-sm">
+                  <Link href="/salary3" className="flex">
+                    <CaretRightIcon className="my-auto mr-2 h-4 w-4" />실 수령액
+                    계산기
+                  </Link>
+                </div>
               </div>
             </ScrollArea>
           </aside>

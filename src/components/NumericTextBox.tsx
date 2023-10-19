@@ -10,13 +10,6 @@ export default function NumericTextBox({ field }: any) {
     setValue(field.value);
   }, [field]);
 
-  const onChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const inputValue = e.currentTarget.value;
-    let str = inputValue.replaceAll(",", "");
-    setValue(str);
-    field.onChange(str);
-  };
-
   const setFormat = (value: string) => {
     if (value === "") {
       return "";
@@ -24,6 +17,17 @@ export default function NumericTextBox({ field }: any) {
 
     return Number(value).toLocaleString("ko-KR");
   };
+
+  const onChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    let inputValue = e.currentTarget.value;
+    inputValue = inputValue.replace(/[^0-9]/g, "");
+    let str = inputValue.replaceAll(",", "");
+
+    setValue(str);
+    field.onChange(str);
+  };
+
+  const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {};
 
   return (
     <>
