@@ -19,53 +19,44 @@ import NumericTextBox from "@/components/NumericTextBox";
 
 const FormSchema = z.object({
   current: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "현재 연봉을 입력해주세요",
   }),
-  percent: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  percent: z.string().min(1, {
+    message: "인상률을 입력해주세요",
   }),
 });
 
 export default function Home() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      current: "",
+      percent: "",
+    },
   });
 
-  const [current, setCurrent] = useState<string | null>(null);
-  const [rate, setRate] = useState<string | null>(null);
   const [result, setResult] = useState("0");
 
-  const calcBtnClickHandler = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-
-    if (current === null || rate === null) {
-      return;
-    }
-
-    const currentSalary = Number(current.replaceAll(",", ""));
-    const increaseRate = Number(rate.replaceAll(",", ""));
-
-    if (currentSalary < 1 || increaseRate < 1) {
-      alert("값을 입력해주세요.");
-      return;
-    }
-    setResult(
-      (currentSalary + (currentSalary * increaseRate) / 100).toLocaleString(
-        "ko-KR",
-      ),
-    );
+  const onReset = (e: React.MouseEvent<HTMLElement>) => {
+    form.reset();
   };
-  const resetBtnClickHandler = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
 
-    setCurrent("0");
-    setRate("0");
-    setResult("0");
+  const onSubmit = (values: z.infer<typeof FormSchema>) => {
+    const currentSalary = Number(values.current);
+    const increaseRate = Number(values.percent);
+    setResult(
+      Number(
+        (currentSalary + (currentSalary * increaseRate) / 100).toFixed(0),
+      ).toLocaleString("ko-KR"),
+    );
   };
 
   return (
     <Form {...form}>
-      <form className="mx-auto my-0" style={{ width: "300px" }}>
+      <form
+        className="mx-auto my-0 w-[300px]"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <FormField
           control={form.control}
           name="current"
@@ -73,37 +64,37 @@ export default function Home() {
             <FormItem>
               <FormLabel>현재 연봉</FormLabel>
               <FormControl>
-                <NumericTextBox value={current} setValue={setCurrent} />
+                <NumericTextBox field={field}></NumericTextBox>
               </FormControl>
+              <FormMessage className="text-red-400 text-sm" />
             </FormItem>
           )}
         />
         <FormField
           control={form.control}
-          name="current"
+          name="percent"
           render={({ field }) => (
             <FormItem>
               <FormLabel>인상률(%)</FormLabel>
               <FormControl>
-                <NumericTextBox value={rate} setValue={setRate} />
+                <NumericTextBox field={field}></NumericTextBox>
               </FormControl>
+              <FormMessage className="text-red-400 text-sm" />
             </FormItem>
           )}
         />
-        <FormDescription>인상된 연봉은 {result}원 입니다.</FormDescription>
         <FormMessage />
-        <div className="mx-auto my-0 text-center" style={{ width: "300px" }}>
-          <Button
-            variant="ghost"
-            onClick={resetBtnClickHandler}
-            className="mr-1 border"
-          >
+        <div className="mx-auto my-3 text-center" style={{ width: "300px" }}>
+          <Button variant="ghost" onClick={onReset} className="mr-1 border">
             초기화
           </Button>
-          <Button onClick={calcBtnClickHandler} className="text-white">
+          <Button type="submit" className="text-white">
             인상액 계산
           </Button>
         </div>
+        <FormDescription className="text-center text-xl">
+          인상된 연봉은 {result}원 입니다.
+        </FormDescription>
       </form>
     </Form>
   );

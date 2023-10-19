@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,64 +18,53 @@ import {
 } from "@/components/ui/form";
 import NumericTextBox from "@/components/NumericTextBox";
 
-const FormSchema = z.object({
-  before: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+const formSchema = z.object({
+  before: z.string().min(1, {
+    message: "직전 연봉을 입력해주세요",
   }),
-  current: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  current: z.string().min(1, {
+    message: "현재 연봉을 입력해주세요",
   }),
 });
 
 export default function Home() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      before: "",
+      current: "",
+    },
   });
 
-  const [beforeSalary, setBeforeSalary] = useState<string | null>(null);
-  const [afterSalary, setAfterSalary] = useState<string | null>(null);
   const [rate, setRate] = useState(0);
 
-  const calcBtnClickHandler = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-
-    if (beforeSalary === null || afterSalary === null) {
-      return;
-    }
-
-    const before = Number(beforeSalary.replaceAll(",", ""));
-    const after = Number(afterSalary.replaceAll(",", ""));
-
-    if (before < 1 || after < 1) {
-      alert("값을 입력해주세요.");
-      return;
-    }
-    setRate(Number((((after - before) / before) * 100).toFixed(2)));
+  const onReset = (e: React.MouseEvent<HTMLElement>) => {
+    form.reset();
   };
-  const resetBtnClickHandler = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
 
-    setBeforeSalary("0");
-    setAfterSalary("0");
-    setRate(0);
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const before = Number(values.before);
+    const after = Number(values.current);
+    setRate(Number((((after - before) / before) * 100).toFixed(2)));
   };
 
   return (
     <div className="w-full">
       <Form {...form}>
-        <form className="mx-auto my-0" style={{ width: "300px" }}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="mx-auto my-0 w-[300px]"
+        >
           <FormField
             control={form.control}
             name="before"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>직전연봉</FormLabel>
+                <FormLabel>직전 연봉</FormLabel>
                 <FormControl>
-                  <NumericTextBox
-                    value={beforeSalary}
-                    setValue={setBeforeSalary}
-                  />
+                  <NumericTextBox field={field}></NumericTextBox>
                 </FormControl>
+                <FormMessage className="text-red-400 text-sm" />
               </FormItem>
             )}
           />
@@ -83,30 +73,33 @@ export default function Home() {
             name="current"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>현재연봉</FormLabel>
+                <FormLabel>현재 연봉</FormLabel>
                 <FormControl>
-                  <NumericTextBox
-                    value={afterSalary}
-                    setValue={setAfterSalary}
-                  />
+                  <NumericTextBox field={field} />
                 </FormControl>
+                <FormMessage className="text-red-400 text-sm" />
               </FormItem>
             )}
           />
-          <FormDescription>인상률은 {rate}%입니다.</FormDescription>
-          <FormMessage />
-          <div className="mx-auto my-0 text-center" style={{ width: "300px" }}>
+          <div
+            className="mx-auto my-3 flex justify-center gap-1 text-center"
+            style={{ width: "300px" }}
+          >
             <Button
+              type="reset"
               variant="ghost"
-              onClick={resetBtnClickHandler}
+              onClick={onReset}
               className="mr-1 border"
             >
               초기화
             </Button>
-            <Button onClick={calcBtnClickHandler} className="text-white">
+            <Button type="submit" className="text-white">
               인상률 계산
             </Button>
           </div>
+          <FormDescription className="text-center text-xl">
+            인상률은 {rate}%입니다.
+          </FormDescription>
         </form>
       </Form>
     </div>
