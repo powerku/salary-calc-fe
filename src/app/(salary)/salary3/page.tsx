@@ -20,6 +20,7 @@ import getNetPay, { SalaryReport } from "@/lib/getNetPay";
 import { format } from "@/lib/utils";
 import * as net from "net";
 import { CaretRightIcon } from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   current: z.string().min(2, {
@@ -35,6 +36,8 @@ export default function Home() {
     },
   });
 
+  const router = useRouter();
+
   const [netPay, setNetPay] = useState<SalaryReport | null>(null);
 
   const onReset = (e: React.MouseEvent<HTMLElement>) => {
@@ -49,6 +52,25 @@ export default function Home() {
 
   const getMonthPay = (pay: number): string => {
     return Number((pay / 12).toFixed(0)).toLocaleString("ko-KR");
+  };
+
+  const goLandPage = () => {
+    let price = netPay?.preTax ?? 0;
+    price = (+price * 6) / 10000;
+    router.push(
+      `https://new.land.naver.com/complexes?ms=37.5441087,126.9745246,14&a=APT:PRE&e=RETAIL&g=${price}`,
+    );
+  };
+
+  const goKoreaCarPage = () => {
+    let price = netPay?.preTax ?? 0;
+    price = ((+price / 12) * 6) / 10000;
+    const min = +price * 0.9;
+    const max = +price * 1.1;
+
+    router.push(
+      `http://www.encar.com/dc/dc_carsearchlist.do?carType=kor&searchType=model#!%7B%22action%22%3A%22(And.Hidden.N._.CarType.Y._.Price.range(${min}..${max}).)%22%2C%22toggle%22%3A%7B%224%22%3A1%7D%2C%22layer%22%3A%22%22%2C%22sort%22%3A%22ModifiedDate%22%2C%22page%22%3A1%2C%22limit%22%3A20%2C%22searchKey%22%3A%22%22%2C%22loginCheck%22%3Afalse%7D`,
+    );
   };
 
   return (
@@ -107,6 +129,16 @@ export default function Home() {
               월 실수령액:
               {" " + format(Number(+netPay!.afterTax / 12).toFixed(0))}원
             </FormDescription>
+          </div>
+        )}
+        {netPay && (
+          <div className="flex flex-col gap-1">
+            <Button onClick={goLandPage} className="text-white">
+              내 연봉으로 구매 가능한 서울 아파트 보기
+            </Button>
+            <Button onClick={goKoreaCarPage} className="text-white">
+              내 연봉으로 구매 가능한 국산 중고차 보기
+            </Button>
           </div>
         )}
       </form>
