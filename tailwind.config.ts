@@ -9,11 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#5c6ac4",
-        secondary: "#ecc94b",
+        primary: "hsl(var(--primary))",
+        secondary: "hsl(var(--secondary))",
+        background: "hsl(var(--background))",
       },
       textColor: {
-        white: "#FFF",
+        "primary-foreground": "hsl(var(--primary-foreground))",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

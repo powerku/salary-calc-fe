@@ -64,7 +64,7 @@ export default function Home() {
                 <FormControl>
                   <NumericTextBox field={field}></NumericTextBox>
                 </FormControl>
-                <FormMessage className="text-red-400 text-sm" />
+                <FormMessage className="text-sm text-red-400" />
               </FormItem>
             )}
           />
@@ -77,7 +77,7 @@ export default function Home() {
                 <FormControl>
                   <NumericTextBox field={field} />
                 </FormControl>
-                <FormMessage className="text-red-400 text-sm" />
+                <FormMessage className="text-sm text-red-400" />
               </FormItem>
             )}
           />
@@ -93,7 +93,10 @@ export default function Home() {
             >
               초기화
             </Button>
-            <Button type="submit" className="text-white">
+            <Button
+              type="submit"
+              className="text-primary-foreground bg-primary"
+            >
               인상률 계산
             </Button>
           </div>

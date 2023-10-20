@@ -66,7 +66,7 @@ export default function Home() {
               <FormControl>
                 <NumericTextBox field={field}></NumericTextBox>
               </FormControl>
-              <FormMessage className="text-red-400 text-sm" />
+              <FormMessage className="text-sm text-red-400" />
             </FormItem>
           )}
         />
@@ -79,7 +79,7 @@ export default function Home() {
               <FormControl>
                 <NumericTextBox field={field}></NumericTextBox>
               </FormControl>
-              <FormMessage className="text-red-400 text-sm" />
+              <FormMessage className="text-sm text-red-400" />
             </FormItem>
           )}
         />
@@ -88,7 +88,7 @@ export default function Home() {
           <Button variant="ghost" onClick={onReset} className="mr-1 border">
             초기화
           </Button>
-          <Button type="submit" className="text-white">
+          <Button type="submit" className="text-primary-foreground bg-primary">
             인상액 계산
           </Button>
         </div>

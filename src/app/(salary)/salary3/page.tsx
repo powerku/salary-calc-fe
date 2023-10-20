@@ -96,7 +96,7 @@ export default function Home() {
           <Button variant="ghost" onClick={onReset} className="mr-1 border">
             초기화
           </Button>
-          <Button type="submit" className="text-white">
+          <Button type="submit" className="text-primary-foreground bg-primary">
             실수령액 계산
           </Button>
         </div>
