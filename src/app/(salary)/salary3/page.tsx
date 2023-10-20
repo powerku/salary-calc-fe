@@ -1,10 +1,15 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import getNetPay, { SalaryReport } from "@/lib/getNetPay";
+import { format } from "@/lib/utils";
+
+import { CaretRightIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,12 +20,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Slider } from "@/components/ui/slider";
 import NumericTextBox from "@/components/NumericTextBox";
-import getNetPay, { SalaryReport } from "@/lib/getNetPay";
-import { format } from "@/lib/utils";
-import * as net from "net";
-import { CaretRightIcon } from "@radix-ui/react-icons";
-import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   current: z.string().min(2, {
@@ -35,9 +36,18 @@ export default function Home() {
       current: "",
     },
   });
+  const watchCurrent = form.watch("current");
+
+  useEffect(() => {
+    form.watch((value) => {
+      const salary = Number(value.current);
+      setSalary(salary);
+    });
+  }, [form, watchCurrent]);
 
   const router = useRouter();
 
+  const [salary, setSalary] = useState<number>(0); // form.getValues("current") as number
   const [netPay, setNetPay] = useState<SalaryReport | null>(null);
 
   const onReset = (e: React.MouseEvent<HTMLElement>) => {
@@ -73,6 +83,12 @@ export default function Home() {
     );
   };
 
+  const onChange = (value: any) => {
+    form.setValue("current", value[0].toString());
+    form.trigger("current");
+    onSubmit(form.getValues());
+  };
+
   return (
     <Form {...form}>
       <form
@@ -86,12 +102,25 @@ export default function Home() {
             <FormItem>
               <FormLabel>현재 연봉</FormLabel>
               <FormControl>
-                <NumericTextBox field={field}></NumericTextBox>
+                <NumericTextBox
+                  field={field}
+                  setValue={setSalary}
+                ></NumericTextBox>
               </FormControl>
-              <FormMessage className="text-red-400 text-sm" />
+              <FormMessage className="text-sm text-red-400" />
             </FormItem>
           )}
         />
+        <>
+          <Slider
+            className="my-5"
+            defaultValue={[salary]}
+            value={[salary]}
+            max={200000000}
+            step={10000}
+            onValueChange={onChange}
+          />
+        </>
         <div className="mx-auto my-3 text-center" style={{ width: "300px" }}>
           <Button variant="ghost" onClick={onReset} className="mr-1 border">
             초기화
@@ -134,10 +163,10 @@ export default function Home() {
         {netPay && (
           <div className="flex flex-col gap-1">
             <Button onClick={goLandPage} className="text-white">
-              내 연봉으로 구매 가능한 서울 아파트 보기
+              내 연봉에 맞는 서울 아파트 보기
             </Button>
             <Button onClick={goKoreaCarPage} className="text-white">
-              내 연봉으로 구매 가능한 국산 중고차 보기
+              내 연봉에 맞는 국산 중고차 보기
             </Button>
           </div>
         )}

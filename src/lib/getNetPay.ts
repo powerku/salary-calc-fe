@@ -10,6 +10,30 @@ const f = (v: number) => (v < 0 ? 0 : v);
 
 const getIncomeTax = (preSalary: number, fammilyCount = 1) => {
   const monthPreSalary = preSalary / 12;
+  const hundredMillionTax = [
+    1507400, 1431570, 1200840, 1170840, 1140840, 1110840, 1080840, 1050840,
+    1020840, 990840, 960840,
+  ];
+
+  if (preSalary === 100000000) {
+    return hundredMillionTax[fammilyCount - 1] * 12;
+  }
+
+  if (100000000 <= preSalary && preSalary < 140000000) {
+    return (
+      hundredMillionTax[fammilyCount - 1] +
+      (preSalary - 100000000) * 0.98 * 0.35 +
+      25000
+    );
+  }
+
+  if (140000000 <= preSalary) {
+    return (
+      hundredMillionTax[fammilyCount - 1] +
+      1397000 +
+      (preSalary - 140000000) * 0.98 * 0.38
+    );
+  }
 
   const tax: any = incomeTaxTable.find((v) => {
     let min, max;
