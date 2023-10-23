@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <div className="flex h-16 items-center justify-center">
-      <h1 className="text-center">{title[pathName]}</h1>
+      <h3 className="text-center text-2xl font-semibold">{title[pathName]}</h3>
     </div>
   );
 }
