@@ -19,15 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-full">
-      <div className="flex-1"></div>
-      <main className="h-full flex-1">
+    <div className="flex h-full flex-col md:flex-row">
+      <div className="hidden md:flex-1"></div>
+      <main className="mb-5 md:flex-1">
         <Header />
         {children}
       </main>
-      <div className="flex-1 md:hidden"></div>
-      <aside className="hidden flex-1 md:flex">
-        <ScrollArea className="h-full w-48 rounded-md">
+      <aside className="flex flex-1 justify-center md:flex">
+        <ScrollArea className="h-fit w-48 rounded-md ">
           <div className="p-4">
             <h4 className="mb-4 text-sm font-medium leading-none">
               연봉 계산기
