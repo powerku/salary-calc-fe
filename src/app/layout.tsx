@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "연봉 계산기",
   description: "연봉 계산기",
+  verification: {
+    google: "IgXso7Vm4RxsmHwu_yYFDzXOCS9FakgY8aaNuMpzc0",
+  },
 };
 
 export default function RootLayout({
