@@ -25,6 +25,7 @@ export default function RootLayout({
         <Header />
         {children}
       </main>
+      <div className="flex-1 md:hidden"></div>
       <aside className="hidden flex-1 md:flex">
         <ScrollArea className="h-full w-48 rounded-md">
           <div className="p-4">
