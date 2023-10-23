@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <div className="flex h-full flex-col md:flex-row">
-      <div className="hidden md:flex-1"></div>
+      <div className="hidden md:flex md:flex-1"></div>
       <main className="mb-5 md:flex-1">
         <Header />
         {children}
