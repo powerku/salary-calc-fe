@@ -66,9 +66,10 @@ export default function Home() {
 
   const goLandPage = () => {
     let price = netPay?.preTax ?? 0;
-    price = (+price * 6) / 10000;
+    const min = (+price * 5) / 10000;
+    const max = (+price * 6) / 10000;
     router.push(
-      `https://new.land.naver.com/complexes?ms=37.5441087,126.9745246,14&a=APT:PRE&e=RETAIL&g=${price}`,
+      `https://m.land.naver.com/map/37.483564:127.032594:12:1165000000/APT/A1?dprcMin=${min}&dprcMax=${max}`,
     );
   };
 
@@ -125,7 +126,7 @@ export default function Home() {
           <Button variant="ghost" onClick={onReset} className="mr-1 border">
             초기화
           </Button>
-          <Button type="submit" className="text-primary-foreground bg-primary">
+          <Button type="submit" className="bg-primary text-primary-foreground">
             실수령액 계산
           </Button>
         </div>
