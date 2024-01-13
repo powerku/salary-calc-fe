@@ -14,13 +14,16 @@ export default function NumericTextBox({ field }: any) {
     if (value === "") {
       return "";
     }
+    if (value.lastIndexOf(".") === value.length - 1) {
+      return value;
+    }
 
     return Number(value).toLocaleString("ko-KR");
   };
 
   const onChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
     let inputValue = e.currentTarget.value;
-    inputValue = inputValue.replace(/[^0-9]/g, "");
+    inputValue = inputValue.replace(/[^0-9.]/g, "");
     let str = inputValue.replaceAll(",", "");
 
     setValue(str);
