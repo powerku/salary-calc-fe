@@ -30,6 +30,13 @@ export default function Home() {
             </Link>
           </div>
           <Separator className="my-2" />
+          <h4 className="mb-4 text-sm font-medium leading-none">속도 계산기</h4>
+          <div key="spped1" className="text-sm">
+            <Link href="/speed1" className="flex">
+              <CaretRightIcon className="my-auto mr-2 h-4 w-4" />
+              속도별 페이스 계산기
+            </Link>
+          </div>
         </div>
       </ScrollArea>
     </main>
