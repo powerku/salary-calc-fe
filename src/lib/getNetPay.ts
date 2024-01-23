@@ -145,7 +145,7 @@ const getNetPay = (
 
   const health = f((preTax - nonTax) * 0.03545); // 건강보험 (과세금액의 3.545%)
 
-  const care = f(health * 0.1281); // 장기요양 (건강보험료의 12.81%)
+  const care = f(health * 0.1295); // 장기요양 (건강보험료의 12.81%)
 
   const hire = f((preTax - nonTax) * 0.009); // 고용보험 (과세금액의 0.9%)
 
