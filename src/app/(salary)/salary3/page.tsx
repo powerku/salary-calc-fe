@@ -188,6 +188,19 @@ export default function Home() {
             <Button onClick={goKoreaCarPage} className="text-white">
               내 연봉에 맞는 국산 중고차 보기
             </Button>
+            <iframe
+              src="https://ads-partners.coupang.com/widgets.html?id=750291&template=carousel&trackingCode=AF5735283&subId=&width=320&height=100&tsource="
+              width="320"
+              height="100"
+              frameBorder="0"
+              scrolling="no"
+              referrerPolicy="unsafe-url"
+              browsingtopics
+            ></iframe>
+            <span className="text-center text-sm">
+              "이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의
+              수수료를 제공받습니다."
+            </span>
           </div>
         )}
       </form>

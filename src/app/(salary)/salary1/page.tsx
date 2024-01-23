@@ -95,7 +95,7 @@ export default function Home() {
             </Button>
             <Button
               type="submit"
-              className="text-primary-foreground bg-primary"
+              className="bg-primary text-primary-foreground"
             >
               인상률 계산
             </Button>
@@ -105,6 +105,19 @@ export default function Home() {
           </FormDescription>
         </form>
       </Form>
+      <iframe
+        src="https://ads-partners.coupang.com/widgets.html?id=750291&template=carousel&trackingCode=AF5735283&subId=&width=320&height=100&tsource="
+        width="320"
+        height="100"
+        frameBorder="0"
+        scrolling="no"
+        referrerPolicy="unsafe-url"
+        browsingtopics
+      ></iframe>
+      <span className="text-center text-sm">
+        "이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를
+        제공받습니다."
+      </span>
     </div>
   );
 }

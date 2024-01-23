@@ -88,13 +88,26 @@ export default function Home() {
           <Button variant="ghost" onClick={onReset} className="mr-1 border">
             초기화
           </Button>
-          <Button type="submit" className="text-primary-foreground bg-primary">
+          <Button type="submit" className="bg-primary text-primary-foreground">
             인상액 계산
           </Button>
         </div>
         <FormDescription className="text-center text-xl">
           인상된 연봉은 {result}원 입니다.
         </FormDescription>
+        <iframe
+          src="https://ads-partners.coupang.com/widgets.html?id=750291&template=carousel&trackingCode=AF5735283&subId=&width=320&height=100&tsource="
+          width="320"
+          height="100"
+          frameBorder="0"
+          scrolling="no"
+          referrerPolicy="unsafe-url"
+          browsingtopics
+        ></iframe>
+        <span className="text-center text-sm">
+          "이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의
+          수수료를 제공받습니다."
+        </span>
       </form>
     </Form>
   );
