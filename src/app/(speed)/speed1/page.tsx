@@ -50,6 +50,7 @@ export default function Home() {
   };
 
   const [speed, setSpeed] = useState<number>(10); // form.getValues("current") as number
+  const [time100m, setTime100m] = useState<Time>(initialTime);
   const [time1Km, setTime1km] = useState<Time>(initialTime);
   const [time3Km, setTime3km] = useState<Time>(initialTime);
   const [time5Km, setTime5km] = useState<Time>(initialTime);
@@ -86,6 +87,7 @@ export default function Home() {
     }
 
     const time1Km = 1 / speed;
+    const time100m = time1Km * 0.1;
     const time3Km = time1Km * 3;
     const time5Km = time1Km * 5;
     const time10Km = time1Km * 10;
@@ -104,6 +106,7 @@ export default function Home() {
       };
     };
 
+    setTime100m(getTime(time100m));
     setTime1km(getTime(time1Km));
     setTime3km(getTime(time3Km));
     setTime5km(getTime(time5Km));
@@ -117,58 +120,78 @@ export default function Home() {
   }, [speed]);
 
   return (
-    <Form {...form}>
-      <form className="mx-auto my-0 w-[300px]">
-        <FormField
-          control={form.control}
-          name="speed"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>시속(km/h)</FormLabel>
-              <FormControl>
-                <NumericTextBox
-                  field={field}
-                  setValue={setSpeed}
-                ></NumericTextBox>
-              </FormControl>
-              <FormMessage className="text-sm text-red-400" />
-            </FormItem>
-          )}
-        />
-        <>
-          <Slider
-            className="my-5"
-            defaultValue={[speed]}
-            value={[speed]}
-            max={30}
-            step={0.5}
-            onValueChange={onChange}
+    <>
+      <Form {...form}>
+        <form className="mx-auto my-0 w-[300px]">
+          <FormField
+            control={form.control}
+            name="speed"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>시속(km/h)</FormLabel>
+                <FormControl>
+                  <NumericTextBox
+                    field={field}
+                    setValue={setSpeed}
+                  ></NumericTextBox>
+                </FormControl>
+                <FormMessage className="text-sm text-red-400" />
+              </FormItem>
+            )}
           />
-        </>
+          <>
+            <Slider
+              className="my-5"
+              defaultValue={[speed]}
+              value={[speed]}
+              max={40}
+              step={0.5}
+              onValueChange={onChange}
+            />
+          </>
 
-        <div className="flex flex-col gap-1">
-          <FormDescription className="text-base">
-            1km 페이스: {time1Km.hour}시간 {time1Km.min}분 {time1Km.sec}초
-          </FormDescription>
-          <FormDescription className="text-base">
-            3km 기록: {time3Km.hour}시간 {time3Km.min}분 {time3Km.sec}초
-          </FormDescription>
-          <FormDescription className="text-base">
-            5km 기록: {time5Km.hour}시간 {time5Km.min}분 {time5Km.sec}초
-          </FormDescription>
-          <FormDescription className="text-base">
-            10km 기록: {time10Km.hour}시간 {time10Km.min}분 {time10Km.sec}초
-          </FormDescription>
-          <FormDescription className="text-base">
-            Half(21.0975.km) 기록: {timeHalf.hour}시간 {timeHalf.min}분{" "}
-            {timeHalf.sec}초
-          </FormDescription>
-          <FormDescription className="text-base">
-            Full(42.105km) 기록: {timeFull.hour}시간 {timeFull.min}분{" "}
-            {timeFull.sec}초
-          </FormDescription>
-        </div>
-      </form>
-    </Form>
+          <div className="flex flex-col gap-1">
+            <FormDescription className="text-base">
+              100m 페이스: {time100m.hour}시간 {time100m.min}분 {time100m.sec}초
+            </FormDescription>
+            <FormDescription className="text-xl">
+              1km 페이스: {time1Km.hour}시간 {time1Km.min}분 {time1Km.sec}초
+            </FormDescription>
+            <FormDescription className="text-base">
+              3km 기록: {time3Km.hour}시간 {time3Km.min}분 {time3Km.sec}초
+            </FormDescription>
+            <FormDescription className="text-base">
+              5km 기록: {time5Km.hour}시간 {time5Km.min}분 {time5Km.sec}초
+            </FormDescription>
+            <FormDescription className="text-base">
+              10km 기록: {time10Km.hour}시간 {time10Km.min}분 {time10Km.sec}초
+            </FormDescription>
+            <FormDescription className="text-base">
+              Half(21.0975.km) 기록: {timeHalf.hour}시간 {timeHalf.min}분{" "}
+              {timeHalf.sec}초
+            </FormDescription>
+            <FormDescription className="text-base">
+              Full(42.105km) 기록: {timeFull.hour}시간 {timeFull.min}분{" "}
+              {timeFull.sec}초
+            </FormDescription>
+          </div>
+        </form>
+      </Form>
+      <div className="item-center flex flex-col justify-center">
+        <iframe
+          src="https://ads-partners.coupang.com/widgets.html?id=750291&template=carousel&trackingCode=AF5735283&subId=&width=320&height=100&tsource="
+          width="320"
+          height="100"
+          frameBorder="0"
+          scrolling="no"
+          referrerPolicy="unsafe-url"
+          className="mx-auto"
+        ></iframe>
+        <span className="mx-auto text-center text-sm">
+          이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를
+          제공받습니다.
+        </span>
+      </div>
+    </>
   );
 }
