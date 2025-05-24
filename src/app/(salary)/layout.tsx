@@ -66,6 +66,17 @@ export default function RootLayout({
             </div>
           </div>
         </ScrollArea>
+        <ScrollArea className="h-fit w-48 rounded-md ">
+          <div className="p-4">
+            <h4 className="mb-4 text-sm font-medium leading-none">서버 시간</h4>
+            <div key="server-time" className="text-sm">
+              <Link href="/server-time" className="flex">
+                <CaretRightIcon className="my-auto mr-2 h-4 w-4" />
+                서버 시간 확인기
+              </Link>
+            </div>
+          </div>
+        </ScrollArea>
       </aside>
     </div>
   );
