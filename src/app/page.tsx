@@ -37,6 +37,16 @@ export default function Home() {
               속도별 페이스 계산기
             </Link>
           </div>
+          <Separator className="my-2" />
+          <h4 className="mb-4 text-sm font-medium leading-none">
+            서버 시간 확인기
+          </h4>
+          <div key="spped1" className="text-sm">
+            <Link href="/server-time" className="flex">
+              <CaretRightIcon className="my-auto mr-2 h-4 w-4" />
+              서버 시간 확인기
+            </Link>
+          </div>
         </div>
       </ScrollArea>
     </main>
