@@ -9,8 +9,8 @@ import { CaretRightIcon } from "@radix-ui/react-icons";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "속도 계산기",
-  description: "속도 계산기",
+  title: "서버 시간 확인기",
+  description: "서버 시간 확인기",
 };
 
 export default function RootLayout({
