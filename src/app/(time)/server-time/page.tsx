@@ -119,7 +119,7 @@ const ServerTime = () => {
         <div className="flex flex-col gap-1">
           <p>내 컴퓨터 시간:</p>
           <p>{formatLocalTime}</p>
-          <p>서버 시간: </p>
+          <p>{url} 서버 시간: </p>
           <p>
             <strong>{formatServerTime}</strong>
           </p>

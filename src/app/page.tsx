@@ -41,7 +41,7 @@ export default function Home() {
           <h4 className="mb-4 text-sm font-medium leading-none">
             서버 시간 확인기
           </h4>
-          <div key="spped1" className="text-sm">
+          <div key="server-time" className="text-sm">
             <Link href="/server-time" className="flex">
               <CaretRightIcon className="my-auto mr-2 h-4 w-4" />
               서버 시간 확인기
