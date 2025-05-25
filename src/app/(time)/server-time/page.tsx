@@ -30,11 +30,11 @@ const ServerTime = () => {
     },
   });
 
-  const [submitTime, setSubmitTime] = useState<Date>();
+  const [submitTime, setSubmitTime] = useState<Date | null>();
   const [url, setUrl] = useState<string>("");
-  const [localTime, setLocalTime] = useState<Date>();
-  const [serverTime, setServerTime] = useState<Date>();
-  const [currentServerTime, setCurrentServerTime] = useState<Date>();
+  const [localTime, setLocalTime] = useState<Date | null>();
+  const [serverTime, setServerTime] = useState<Date | null>();
+  const [currentServerTime, setCurrentServerTime] = useState<Date | null>();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -69,15 +69,26 @@ const ServerTime = () => {
   const formatServerTime = currentServerTime?.toLocaleString();
 
   const onSubmit = async ({ url }: z.infer<typeof FormSchema>) => {
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    const { result } = await getServerTime(url);
-    setUrl(url);
-    setSubmitTime(new Date());
-    setServerTime(new Date(result));
-    setCurrentServerTime(new Date(result));
+      const { result } = await getServerTime(url);
+      setUrl(url);
 
-    setIsLoading(false);
+      if (result) {
+        setSubmitTime(new Date());
+        setServerTime(new Date(result));
+        setCurrentServerTime(new Date(result));
+      } else {
+        setSubmitTime(null);
+        setServerTime(null);
+        setCurrentServerTime(null);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -117,12 +128,23 @@ const ServerTime = () => {
           </Button>
         </div>
         <div className="flex flex-col gap-1">
-          <p>내 컴퓨터 시간:</p>
-          <p>{formatLocalTime}</p>
-          <p>{url} 서버 시간: </p>
-          <p>
-            <strong>{formatServerTime}</strong>
-          </p>
+          {url ? (
+            <>
+              <p>{url} 서버 시간: </p>
+              <p>
+                {serverTime ? (
+                  <strong>{formatServerTime}</strong>
+                ) : (
+                  "알 수 없는 서버 시간"
+                )}
+              </p>
+            </>
+          ) : (
+            <>
+              <p>내 컴퓨터 시간:</p>
+              <p>{formatLocalTime}</p>
+            </>
+          )}
         </div>
       </form>
     </Form>
